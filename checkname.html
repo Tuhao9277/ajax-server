@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script>
+			onload = function(){
+				var userInput = document.getElementById("username");
+				let tip = document.getElementsByClassName("tip")[0];
+				
+				userInput.addEventListener("input",function(){
+					tip.innerText ="";
+				})
+				
+				userInput.onblur = function(){
+					// http://localhost:9090/login?username=zhangsan
+
+					//编写AJAX第一步，创建一个XHR对象
+					var xhr = new XMLHttpRequest();
+
+					//第二步，设置你要请求的参数(请求类型，请求地址)
+					xhr.open("get", `http://localhost:9090/login?username=${this.value}`);
+
+					//第三步，设置回调函数
+					xhr.onload = function(){
+						console.log( xhr.response );
+						if(xhr.response == 1) {
+							alert("该用户名已存在!!");
+						} 
+					}
+					//第四步，发送
+					xhr.send();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		姓名:<input id="username" type="text" /><br>
+		<div class="tip"></div>
+		密码:<input type="password"/><br>
+		<button onclick="check()">注册</button>
+	</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+
+
+
+<script id="temp1" type="text/html">
+    <ul>
+        <%   for (var i = 0; i < data.names.length; i++) {  %>
+        <li> <%= data.names[i]  %></li>
+        <% } %>
+    </ul>
+</script>
+<script id="temp2" type="text/html">
+    <ul>
+        <% for (var i = 0; i < data.names.length; i++) {  %>
+            <li>
+                <% if(data.names[i] == "zhangsan")%>{
+                <font color="red"><%= data.names[i] %></font>
+                <% } %>
+                <%= else {%>
+                <%= data.names[i] %>
+                <% } %>
+            </li>
+        <% } %>
+    </ul>
+</script>
+
+<body> </body>
+<script type="text/javascript">
+    function template(id, data) {
+        let template = document.getElementById(id).innerHTML;
+
+        template = 'print(`' + template + '`)';
+        // 替换data.names[i]部分
+        template = template.replace(/<%=(.+?>)%>/g, '`) \n print( $1 ) print(`')
+        template = template.replace(/<%(.+?>)%>/g, '`) \n $1 \n print(`')
+
+        var codestr = `
+            (function (data){
+                var htmlstr = "";
+                function print(val){
+                    htmlstr +=val;
+                }
+                ${template}
+                return htmlstr;
+            })
+        `;
+        let fun = eval(codestr);
+        return fun(data);
+
+    }
+    console.log(template("temp1", {}))
+</script>
+
+</html>

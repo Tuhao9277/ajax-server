@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<script id="temp_weather" type="text/html">
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <%=data.HeWeather6[0].basic.location %>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    天气： <%=data.HeWeather6[0].now.cond_txt %>
+                </p>
+                <p>
+                    体感温度： <%=data.HeWeather6[0].now.fl %>
+                </p>
+                <p>
+                    当前温度： <%=data.HeWeather6[0].now.tmp %>
+                </p>
+                <p>
+                    风向： <%=data.HeWeather6[0].now.wind_dir %>
+                </p>
+                <p>
+                    风力： <%=data.HeWeather6[0].now.wind_sc %>
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>天气预报<small>Weather Report</small></h1>
+        </div>
+        <div class="row" id="view">
+
+        </div>
+    </div>
+
+</body>
+<script src="scripts/myTemplate.js" type="text/javascript" charset="utf-8"></script>
+<script src="scripts/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    let cityList = [{
+            cityname : "北京",
+            citycode : "beijing"
+        },
+        {
+            cityname : "济南",
+            citycode : "jinan"
+        }, {
+            cityname : "聊城",
+            citycode : "liaocheng"
+        }
+    ];
+    cityList.forEach(item => {
+        ajax({
+            url: "http://localhost:9090/proxy/free-api.heweather.com/s6/weather/now?key=1790454674ca4af890312094cec23c95&location=" +
+                item.citycode,
+            dataType: "json",
+            success: function (data) {
+                let htmlstr = template("temp_weather", data);
+                view.innerHTML += htmlstr;
+            }
+        })
+    })
+</script>
+
+</html>

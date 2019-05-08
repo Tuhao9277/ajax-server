@@ -17,6 +17,6 @@ module.exports = function(reqinfo, res){
 	console.log(isFound);
 	
 	res.setHeader("Content-Type","text/html; charset=utf8");
-	res.write(isFound.toString());
+	res.write(isFound?"1":"0");
 	res.end();
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="scripts/ajax.js"></script>
+<script>    
+    let _script = document.createElement("script");
+    _script.src = "http://localhost:9090/scripts/weather.js";
+    document.body.appendChild(_script);
+    function write(data){
+        alert(data)
+    }
+</script>
+
+</html>

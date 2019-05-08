@@ -6,7 +6,8 @@ const http = require("http");
 const route = require("./router.js");
 
 const server = http.createServer((request, response)=>{
-	// console.log(request.method);
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	 console.log(request.method);
 	/**
 	console.log("hello!!!!!");
 	

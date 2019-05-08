@@ -1,5 +1,5 @@
 function template(id, data) {
-    console.log(data);
+  
     let template = document.getElementById(id).innerHTML;
 
     template = 'print(`' + template + '`)';

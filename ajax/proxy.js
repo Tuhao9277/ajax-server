@@ -1,5 +1,5 @@
 require("colors");
-const http = require('http');
+const https = require('https');
 module.exports = function(reqinfo, res){
     
     // console.log(reqinfo.path.yellow);  //   /proxy/api.douban.com/v2/movie/in_theaters?count=9       
@@ -12,7 +12,7 @@ module.exports = function(reqinfo, res){
         method: 'get'
     };
     //服务器转发请求
-    const req = http.request(options,(response)=>{
+    const req = https.request(options,(response)=>{
         
         response.pipe(res);
     });

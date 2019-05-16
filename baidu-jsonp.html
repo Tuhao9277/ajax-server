@@ -46,35 +46,30 @@
 
 
 <script>
-    var searchInput;
-    var droplist;
-
     onload = function(){
-        searchInput = document.getElementsByClassName("searchInput")[0];
-        droplist = document.getElementsByClassName("droplist")[0];
-        //使用JSONP解决ajax不能跨域的问题
-        searchInput.addEventListener("keyup", function(){
-            // var _script = document.createElement("script");
-            // _script.src = `http://suggestion.baidu.com/su?wd=${this.value}&cb=cbk`;
-            // document.body.appendChild(_script);
-            $.ajax({
-                url : `http://suggestion.baidu.com/su?wd=${this.value}`,
-                dataType : "jsonp",
-                jsonp: "cb",
-                success : function(data){
-                    console.log(data);
-					droplist.innerHTML = "";
-					var words = data.s;
-					words.forEach(element => {
-					    var li = document.createElement("li");
-					    li.innerText = element;
-					    droplist.appendChild(li);
-					});
-                }
-            });
-        })
-    }
+    let droplist = document.getElementsByClassName("droplist")[0];
+    let searchInput = document.getElementsByClassName("searchInput")[0];
+    searchInput.addEventListener("keyup",function(){
+        $.ajax({
+            url: `http://suggestion.baidu.com/su?wd=${this.value}`,
+            dataType:"jsonp",
+            jsonp:"cb",
+            success : function(data){
+                console.log(data);
+                let words = data.s;
+                droplist.innerHTML = "";
+                words.forEach(word => {
+                  
+                    let li = document.createElement("li");
+                    li.innerText = word;
+                    droplist.appendChild(li);
+                    
+                });
+            }
 
+        })
+    })
+}
 </script>
 
 <body>
